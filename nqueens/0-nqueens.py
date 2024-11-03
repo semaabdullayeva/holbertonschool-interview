@@ -1,27 +1,21 @@
 #!/usr/bin/python3
 """ N queens backtracking """
 import sys
-
-
 class NQueen:
     """ Class Queens """
-
     def __init__(self, n):
         """ Constructor """
         self.n = n
         self.x = [0 for i in range(n + 1)]
         self.res = []
-
     def place(self, k, i):
         """ Check if a secure place
         """
-
         for j in range(1, k):
             if self.x[j] == i or \
                abs(self.x[j] - i) == abs(j - k):
                 return 0
         return 1
-
     def nQueen(self, k):
         """ Resolve the nqueen
         """
@@ -36,26 +30,23 @@ class NQueen:
                 else:
                     self.nQueen(k + 1)
         return self.res
-
-
 if len(sys.argv) != 2:
     print("Usage: nqueens N")
     sys.exit(1)
-
 N = sys.argv[1]
-
 try:
     N = int(N)
 except ValueError:
     print("N must be a number")
     sys.exit(1)
-
 if N < 4:
     print("N must be at least 4")
     sys.exit(1)
-
 queen = NQueen(N)
 result = queen.nQueen(1)
-
 for i in result:
     print(i)
+
+
+
+
