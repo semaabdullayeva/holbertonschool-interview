@@ -1,3 +1,1 @@
-![Project Logo](../assets/LogoHolberton.png)
-
-Holberton School 
+Heap insert algorithm in C

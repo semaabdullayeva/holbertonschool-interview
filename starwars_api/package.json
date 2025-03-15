@@ -1,5 +1,12 @@
 {
-  "dependencies": {
-    "async": "^3.2.5"
-  }
+  "name": "starwars_api",
+  "version": "1.0.0",
+  "description": "Install Node 10 ``` https://intranet.hbtn.io/projects/2277#:~:text=%24%20curl%20%2DsL%20https%3A//deb.nodesource.com/setup_10.x%20%7C%20sudo%20%2DE%20bash%20%2D%0A%24%20sudo%20apt%2Dget%20install%20%2Dy%20nodejs ``` Install semi-standard",
+  "main": "0-starwars_characters.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

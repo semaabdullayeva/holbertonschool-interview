@@ -1,3 +1,1 @@
-![Project Logo](../assets/LogoHolberton.png)
-
-Holberton School 
+Checking whether an integer is polindromeor not in C

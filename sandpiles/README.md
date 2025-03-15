@@ -1,1 +1,1 @@
-Readme for sandpiles
+finding sum of two sandpiles

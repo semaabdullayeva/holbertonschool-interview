@@ -1,40 +1,28 @@
-#include <stdio.h>
 #include "palindrome.h"
+#include <math.h>
 
-int size(long n)
+/**
+ * is_palindrome - checkes whether a number is palindrome or not
+ *
+ * @n: number to be checked
+ * Return: 1 if number is polindrom, otherwise 0
+ */
+int is_palindrome(unsigned long n)
 {
-    int i = 0;
-    for(i = 1;;i++)
-    {
-        n/=10;
-        if(n==0)
-            return i;
-    }
-    return 0;
-}
+    unsigned long reverse_n = 0, temp_n = n;
 
-long pow_10(int n){
-    long value = 1;
-    int i = 0;
-    for(i =0;i<n;i++)
+    while (temp_n != 0)
     {
-        value*=10;
+        reverse_n = (reverse_n * 10) + (temp_n % 10);
+        temp_n /= 10;
     }
-    return value;
-}
-int is_palindrome(long n) {
-    int Size = size(n);
-    int i = 0;    
-    
-    if(n < 0)
-        return 0;
 
-    for(i =0;i<Size;i++)
+    if (n == reverse_n)
     {
-        char leftmost = n / pow_10(Size-i-1) % 10;
-        char rightmost = n / pow_10(i) % 10;
-        if(leftmost!=rightmost)
-            return 0;
+        return (1);
     }
-    return 1;
+    else
+    {
+        return (0);
+    }
 }

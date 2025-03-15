@@ -1,3 +1,1 @@
-![Project Logo](../assets/LogoHolberton.png)
-
-Holberton School 
+Inserting a node into a sorted linked list

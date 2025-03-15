@@ -1,15 +1,20 @@
-#include "menger.h"
+#include <stdio.h>
+#include <math.h>
+
 /**
  * menger - function that draws a 2D Menger Sponge
- * @level: level of the menger sponge to draw
+ * @level: level of the Menger sponge to draw
  */
-
 void menger(int level)
 {
-	int n, m, j, x, y;
+	int n;
+	int m;
+	int j;
+	int x;
+	int y;
 	char s;
 
-	m = pow(3, level);
+	m = (int)pow(3, level);
 	for (n = 0; n < m; n++)
 	{
 		for (j = 0; j < m;)
@@ -22,6 +27,7 @@ void menger(int level)
 				if (x % 3 == 1 && y % 3 == 1)
 				{
 					s = ' ';
+					break;
 				}
 				x /= 3;
 				y /= 3;

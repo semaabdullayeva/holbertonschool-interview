@@ -1,199 +1,102 @@
 #include "main.h"
-#include <stdlib.h>
-
-void putword(char *str);
-void error(void);
-void check_digit(char *str);
-int _strlen(char *s);
-int *__calloc(unsigned int nmemb, unsigned int size);
-void check_alloc(int *p);
-void multiply(int *finalRes, int len1, char *s1, int len2, char *s2);
-char *_memset(char *s, char b, unsigned int n);
 
 /**
- * main - Run the process, make two inputed arg multiply
- *
- * @argc: Number of arg
- * @argv: Array of arg
- *
- * Return: 0 (succes)
+ * checknumber - Verify that a string is numeric
+ * @string: A string
+ * Return: 1 if valid, 0 if invalid
  */
-int main(int argc, char *argv[])
+int checknumber(char *string)
 {
-	int len1, len2;
-	int *finalRes;
+	int i;
+	char c;
 
-	if (argc != 3 || argv[1] == NULL || argv[2] == NULL)
-		error();
-
-	check_digit(argv[1]);
-	check_digit(argv[2]);
-
-	len1 = _strlen(argv[1]);
-	len2 = _strlen(argv[2]);
-
-	finalRes = __calloc((len1 + len2), sizeof(int));
-
-	multiply(finalRes, len1, argv[1], len2, argv[2]);
-	free(finalRes);
-	return (0);
-}
-
-/**
- * putword - Print a word
- *
- * @str: Word to print
- *
- * Return: Anything, cause void function.
- */
-void putword(char *str)
-{
-	while (*str)
+	for (i = 0; string[i]; i++)
 	{
-		_putchar(*str);
-		str++;
+		c = string[i];
+		if (c < '0' || c > '9')
+			return (0);
 	}
+
+	return (1);
 }
 
 /**
- * error - exit the code if any error.
+ * print_string - Prints a string
  *
- * Return: Anything, cause void function
+ * @string: A string
  */
-void error(void)
-{
-	putword("Error\n");
-	exit(98);
-}
-
-/**
- * check_digit - Check if the str contain only digit
- *
- * @str: String to test
- *
- * Return: Anything, cause void function
- */
-void check_digit(char *str)
+void print_string(char *string)
 {
 	int i;
 
-	for (i = 0; *(str + i); i++)
-	{
-		if (!(str[i] >= '0' && str[i] <= '9'))
-			error();
-	}
-}
-
-/**
- * _strlen - Calculate the length of a string.
- *
- * @s: String to manipulate.
- *
- * Return: The length of the inputed string.
- */
-
-int _strlen(char *s)
-{
-	int i;
-
-	for (i = 0; s[i]; i++)
-		;
-	return (i);
-}
-
-
-
-/**
- * __calloc - Recode the calloc function
- *
- * @nmemb: Length of the array that contain pointers
- * @size: Size of the elements pointed
- *
- * Return: NULL if any problem, pointer to the array else (succes)
- */
-int *__calloc(unsigned int nmemb, unsigned int size)
-{
-	void *pointer;
-
-	if (nmemb == 0 || size == 0)
-		error();
-
-	pointer = malloc(nmemb * size);
-	check_alloc(pointer);
-
-	_memset(pointer, 0, nmemb * size);
-
-	return (pointer);
-}
-
-/**
- * _memset - fills memory with a constant byte
- *
- * @s: Buffer adress
- * @b: Constant byte to fill memory
- * @n: Number of contant byte to fill
- *
- * Return: The buffer adress.
- */
-char *_memset(char *s, char b, unsigned int n)
-{
-	unsigned int i;
-
-	for (i = 0; i < n; i++)
-		*(s + i) = b;
-	return (s);
-}
-
-
-/**
- * check_alloc - check if the malloc is a succes
- *
- * @p: Pointer that been malloc
- *
- * Return: Anything, cause void function
- */
-void check_alloc(int *p)
-{
-	if (p == NULL)
-		error();
-}
-
-/**
- * multiply - multiply two sting and print it
- *
- * @finalRes: Reslut array
- * @len1: Length of the first str
- * @s1: First str
- * @len2: Length of the second str
- * @s2: Second str
- *
- * Return: Anything, cause void function.
- */
-void multiply(int *finalRes, int len1, char *s1, int len2, char *s2)
-{
-	int i, j, carry, n1, n2;
-
-	for (i = (len1 - 1); i >= 0; i--)
-	{
-		carry = 0;
-		n1 = s1[i] - '0';
-		for (j = (len2 - 1); j >= 0; j--)
-		{
-			n2 = s2[j] - '0';
-			carry += n1 * n2 + finalRes[i + j + 1];
-			finalRes[i + j + 1] = carry % 10;
-			carry /= 10;
-		}
-		if (carry > 0)
-			finalRes[i + j + 1] += carry;
-	}
-	i = 0;
-	while (finalRes[i] == 0)
-		i++;
-	if (i >= len1 + len2 + 1)
-		_putchar('0');
-
-	for ( ; i < (len1 + len2) ; i++)
-		_putchar(finalRes[i] + '0');
+	for (i = 0; string[i]; i++)
+		_putchar(string[i]);
 	_putchar('\n');
+}
+
+/**
+ * _strlen - Calculates the length of a string
+ *
+ * @str: A string
+ *
+ * Return: The number of bytes in the string excluding the null byte
+ */
+size_t _strlen(char *str)
+{
+	size_t i = 0;
+
+	while (str[i++])
+		continue;
+
+	return (--i);
+}
+
+/**
+ * main - multiply two large integers and prints the result
+ * @argc: Command line argument count
+ * @argv: Command line arguments
+ * Return: 1 on success, 98 on failure.
+ */
+int main(int argc, char **argv)
+{
+	char *a, *b, digit_a, digit_b, sum;
+	char *result;
+	int i = 0, j;
+	size_t result_length, a_length, b_length, k;
+
+	if (argc != 3 || !checknumber(argv[1]) || !checknumber(argv[2]))
+	{
+		print_string("Error");
+		exit(98);
+	}
+	a = argv[1];
+	b = argv[2];
+	a_length = _strlen(a);
+	b_length = _strlen(b);
+	result_length = a_length + b_length;
+	result = (char *)malloc(result_length);
+	while ((size_t)i < result_length)
+		result[i++] = 0;
+	for (i = a_length - 1; i >= 0; i--)
+	{
+		digit_a = a[i] - '0';
+		for (j = b_length - 1; j >= 0; j--)
+		{
+			digit_b = b[j] - '0';
+			k = result_length - 1 - (b_length - j - 1) - (a_length - i - 1);
+			result[k] += digit_a * digit_b;
+			for (sum = result[k]; sum > 9; sum = result[k])
+			{
+				result[k--] = sum % 10;
+				result[k] += sum / 10;
+			}
+		}
+	}
+	for (i = k; (size_t)i < result_length; i++)
+		result[i] += '0';
+	while (result[k] == '0' && k < result_length - 1)
+		k++;
+	print_string(result + k);
+	free(result);
+	return (EXIT_SUCCESS);
 }

@@ -1,3 +1,1 @@
-![Project Logo](../assets/LogoHolberton.png)
-
-Holberton School 
+Drawing 2D menger sponge in C

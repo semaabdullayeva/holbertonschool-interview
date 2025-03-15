@@ -1,1 +1,1 @@
-Readme for sandpiles
+A function that merges a single row or column in 2048.

@@ -1,65 +1,53 @@
 #include "search_algos.h"
-
 /**
- * print_array - Prints an array of integers
- * @array: The array to be printed
- * @left: The starting index
- * @right: The ending index
+ * advanced_binary -  function that searches for a value in
+ *			a sorted array of integers.
+ * @array: table of integers
+ * @size: tmide number of elements
+ * @value: tmide value
+ * Return: index or -1
  */
-void print_array(int *array, size_t left, size_t right)
-{
-	size_t i;
 
-	printf("Searching in array: ");
-	for (i = left; i <= right; i++)
-	{
-		if (i > left)
-			printf(", ");
-		printf("%d", array[i]);
-	}
-	printf("\n");
-}
-
-/**
- * advanced_binary_recursive - Helper function for advanced binary search
- * @array: The array to search
- * @left: The starting index
- * @right: The ending index
- * @value: The value to search for
- *
- * Return: Index where value is located, or -1 if not found
- */
-int advanced_binary_recursive(int *array, size_t left, size_t right, int value)
-{
-	size_t mid;
-
-	if (left > right)
-		return (-1);
-
-	print_array(array, left, right);
-	mid = (left + right) / 2;
-
-	if (array[mid] == value && (mid == left || array[mid - 1] != value))
-		return (mid);
-
-	if (array[mid] >= value)
-		return (advanced_binary_recursive(array, left, mid, value));
-
-	return (advanced_binary_recursive(array, mid + 1, right, value));
-}
-
-/**
- * advanced_binary - Searches for a value in a sorted array of integers
- * @array: The array to search
- * @size: The number of elements in the array
- * @value: The value to search for
- *
- * Return: The index where value is located, or -1 if not found
- */
 int advanced_binary(int *array, size_t size, int value)
 {
-	if (array == NULL || size == 0)
+	size_t i, mid, i_el = 0;
+	int tmp;
+
+	if (array == NULL)
+		return (-1);
+	printf("Searching in array: ");
+	for (i = 0; i < size; i++)
+	{
+		if (i == size - 1)
+			printf("%d\n", array[i]);
+		else
+			printf("%d, ", array[i]);
+	}
+
+
+	if (size == 1 && array[0] != value)
 		return (-1);
 
-	return (advanced_binary_recursive(array, 0, size - 1, value));
+	mid = (size - 1) / 2;
+
+	if (array[mid] == value)
+	{
+		if (array[mid - 1] < value)
+		return (mid);
+	}
+
+	if (array[mid] < value)
+	{
+		i_el += mid + 1;
+		array += mid + 1;
+		if (size % 2 != 0)
+			mid--;
+	}
+
+	mid++;
+	tmp = advanced_binary(array, mid, value);
+	if (tmp != -1)
+		return (tmp + i_el);
+
+	return (-1);
 }
